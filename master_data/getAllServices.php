@@ -40,6 +40,20 @@
 		else{
 			$json_data[$i][3]['class'] = "badge badge-info";
 		}
+
+		// services status
+		$json_data[$i][4]['data']  = $data[$i] -> services_status;
+		$json_data[$i][4]['value'] = $data[$i] -> services_status;
+		$json_data[$i][4]['type']  = "badge_radio";
+
+		if($data[$i] -> services_status == 1){
+			$json_data[$i][4]['class'] = "badge badge-success";
+			$json_data[$i][4]['value'] = "Aktif";
+		}
+		else{
+			$json_data[$i][4]['class'] = "badge badge-danger";
+			$json_data[$i][4]['value'] = "Tidak Aktif";
+		}
 		
 	}
 	

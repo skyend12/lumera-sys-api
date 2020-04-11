@@ -2,31 +2,58 @@
 
 	require '../api_conf.php';
 	
-	$data = $dale->kueri("SELECT * FROM `master_patients` ORDER BY `patients_name` ASC");
+	$data = "";
+
+	if(isset($_GET['id'])){
+		$data = $dale->kueri("SELECT * FROM `master_patients` WHERE `patients_id` = '".$_GET['id']."'");
+	}
+	else{
+		$data = $dale->kueri("SELECT * FROM `master_patients` ORDER BY `patients_name` ASC");
+	}
+
 	
 	$data = json_decode($data);
 	$json_data = [];
 
 	for($i = 0; $i < sizeof($data); $i++){
 
-		$json_data[$i][0]['data']  = $i + 1;
+		$json_data[$i][0]['data']  = $data[$i] -> patients_id;
+		$json_data[$i][0]['type']  = "id";
 
 		// patients name
 		$json_data[$i][1]['data']  = $data[$i] -> patients_name;
+		$json_data[$i][1]['type']  = "text";
 		$json_data[$i][1]['class'] = "";
 
-		// patients address
-		$json_data[$i][2]['data']  = $data[$i] -> patients_address;
+		// patients price
+		$json_data[$i][2]['data']  = $data[$i] -> services_price;
+		$json_data[$i][2]['type']  = "price";
 		$json_data[$i][2]['class'] = "";
 
-		// patients hp
+		// services category
+		$json_data[$i][3]['data']  = $data[$i] -> services_category;
 		$json_data[$i][3]['type']  = "badge";
-		$json_data[$i][3]['class'] = "badge badge-success";
-		$json_data[$i][3]['data']  = $data[$i] -> patients_hp;
 
-		// patients dob
-		$json_data[$i][4]['data']  = $data[$i] -> patients_dob;
-		$json_data[$i][4]['class'] = "";
+		if($data[$i] -> services_category == "Klinik"){
+			$json_data[$i][3]['class'] = "badge badge-primary";
+		}
+		else{
+			$json_data[$i][3]['class'] = "badge badge-info";
+		}
+
+		// services status
+		$json_data[$i][4]['data']  = $data[$i] -> services_status;
+		$json_data[$i][4]['value'] = $data[$i] -> services_status;
+		$json_data[$i][4]['type']  = "badge_radio";
+
+		if($data[$i] -> services_status == 1){
+			$json_data[$i][4]['class'] = "badge badge-success";
+			$json_data[$i][4]['value'] = "Aktif";
+		}
+		else{
+			$json_data[$i][4]['class'] = "badge badge-danger";
+			$json_data[$i][4]['value'] = "Tidak Aktif";
+		}
 		
 	}
 	
