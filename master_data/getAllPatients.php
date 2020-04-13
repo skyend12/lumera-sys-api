@@ -25,34 +25,32 @@
 		$json_data[$i][1]['type']  = "text";
 		$json_data[$i][1]['class'] = "";
 
-		// patients price
-		$json_data[$i][2]['data']  = $data[$i] -> services_price;
-		$json_data[$i][2]['type']  = "price";
+		// patients address
+		$json_data[$i][2]['data']  = $data[$i] -> patients_address;
+		$json_data[$i][2]['type']  = "text";
 		$json_data[$i][2]['class'] = "";
 
-		// services category
-		$json_data[$i][3]['data']  = $data[$i] -> services_category;
-		$json_data[$i][3]['type']  = "badge";
+		// patients hp
+		$json_data[$i][3]['data']  = $data[$i] -> patients_hp;
+		$json_data[$i][3]['type']  = "text";
+		$json_data[$i][3]['class'] = "";
 
-		if($data[$i] -> services_category == "Klinik"){
-			$json_data[$i][3]['class'] = "badge badge-primary";
+		// patients dob
+		$json_data[$i][4]['data']  = $data[$i] -> patients_dob;
+		$json_data[$i][4]['type']  = "date";
+		$json_data[$i][4]['class'] = "";
+
+		// patients status
+		$json_data[$i][5]['data']  = $data[$i] -> patients_status;
+		$json_data[$i][5]['type']  = "badge_radio";
+
+		if($data[$i] -> patients_status == 1){
+			$json_data[$i][5]['class'] = "badge badge-success";
+			$json_data[$i][5]['value'] = "Aktif";
 		}
 		else{
-			$json_data[$i][3]['class'] = "badge badge-info";
-		}
-
-		// services status
-		$json_data[$i][4]['data']  = $data[$i] -> services_status;
-		$json_data[$i][4]['value'] = $data[$i] -> services_status;
-		$json_data[$i][4]['type']  = "badge_radio";
-
-		if($data[$i] -> services_status == 1){
-			$json_data[$i][4]['class'] = "badge badge-success";
-			$json_data[$i][4]['value'] = "Aktif";
-		}
-		else{
-			$json_data[$i][4]['class'] = "badge badge-danger";
-			$json_data[$i][4]['value'] = "Tidak Aktif";
+			$json_data[$i][5]['class'] = "badge badge-danger";
+			$json_data[$i][5]['value'] = "Tidak Aktif";
 		}
 		
 	}
