@@ -15,7 +15,7 @@
 							  SET patients_id        = '".$id."', 
 							  	  patients_name      = '".$_GET['data_0']."', 
 							  	  patients_address   = '".$_GET['data_1']."',
-							  	  patients_hp        = '".$_GET['data_2']."', 
+							  	  patients_hp        = '".'0'.$_GET['data_2']."', 
 							  	  patients_dob       = '".$_GET['data_3']."',
 							  	  patients_status    = '".$_GET['data_4']."',
 							  	  created_by         = 'NULL', 
@@ -23,7 +23,7 @@
 							  ON DUPLICATE KEY UPDATE 
 							  	  patients_name      = '".$_GET['data_0']."', 
 							  	  patients_address   = '".$_GET['data_1']."',
-							  	  patients_hp        = '".$_GET['data_2']."', 
+							  	  patients_hp        = '".'0'.$_GET['data_2']."', 
 							  	  patients_dob       = '".$_GET['data_3']."',
 							  	  patients_status    = '".$_GET['data_4']."',
 							  	  created_by         = 'NULL', 
