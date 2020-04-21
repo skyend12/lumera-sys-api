@@ -82,6 +82,10 @@ class dale{
     
     }
 
+    public function tanggalHariIni(){
+        return date("Y-m-d");           
+    }
+
     // querying data
     public function kueri($sql_query, $editManual = 0){
 
