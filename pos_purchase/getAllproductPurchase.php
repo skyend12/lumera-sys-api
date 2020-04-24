@@ -25,6 +25,8 @@
 
 		$arr = array('purchase_id'     => $data[0] -> purchase_id,
 					 'purchase_status' => $data[0] -> purchase_status,
+					 'purchase_total' => $data[0] -> purchase_amount,
+					 'purchase_date'   => $data[0] -> purchase_date,
 					 'cart' => $cart );
 		$json_data = $arr;
 	}

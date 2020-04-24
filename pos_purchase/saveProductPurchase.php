@@ -60,7 +60,29 @@
 							 '".$item_qty."', 
 							 '".$item_price."',
 							 '".$item_price * $item_qty."')");
+
+		// updating product stock
+		// only update stock if status = 1 | checkout
+		if($purchase_status == 1){
+
+			// get the curent stock
+			$data = $dale->kueri("SELECT `product_stock` 
+								  FROM   `master_product` 
+								  WHERE  `product_id` = '".$item_id."'");
+
+			// add the last stock position with new stock
+			$item_stok_now = json_decode($data);
+			$item_stok_now = $item_stok_now[0] -> product_stock;
+			$update_stok   = (int)$item_stok_now + $item_qty;
+
+			// set update stok
+			$data = $dale->kueri("UPDATE `master_product` 
+								  SET    `product_stock` = '".$update_stok."' 
+								  WHERE  `master_product`.`product_id` = '".$item_id."'");
+		}
 	}
+
+
 
 	echo json_decode($request);
 
