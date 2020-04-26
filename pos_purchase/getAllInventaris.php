@@ -12,7 +12,7 @@
 							  INNER JOIN `purchase_detail` ON `purchase`.`purchase_id` = `purchase_detail`.`purchase_id` 
 							  WHERE 
 							  `purchase`.`purchase_id` = '".$_GET['purchase_id']."' AND 
-							  `purchase`.`purchase_type` = 'Produk'");
+							  `purchase`.`purchase_type` = 'Inventaris'");
 		$data = json_decode($data);
 
 		$i = 0;
@@ -34,8 +34,7 @@
 
 	else{
 		
-		$data = $dale->kueri("SELECT * FROM `purchase` WHERE 
-							  `purchase`.`purchase_type` = 'Produk'");
+		$data = $dale->kueri("SELECT * FROM `purchase` WHERE `purchase_type` = 'INVENTARIS'");
 		$data = json_decode($data);
 
 		for($i = 0; $i < sizeof($data); $i++){

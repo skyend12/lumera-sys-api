@@ -12,7 +12,7 @@
 	$purchase_amount = $request -> purchase_total;
 	$purchase_status = $request -> purchase_status;
 	$purchase_items  = $request -> purchase_items;
-	$purchase_type   = "Produk";
+	$purchase_type   = "Inventaris";
 
 	$data = $dale->kueri("INSERT INTO `purchase` 
 							  SET purchase_id        = '".$purchase_id."', 
