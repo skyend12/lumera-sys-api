@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 18, 2020 at 06:51 PM
+-- Generation Time: May 23, 2020 at 05:35 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -70,9 +70,9 @@ CREATE TABLE `master_product` (
 --
 
 INSERT INTO `master_product` (`product_id`, `product_name`, `product_price`, `product_stock`, `product_status`, `created_by`, `updated_by`) VALUES
-('098109390218', 'Serum', 300000, 11, 1, 'NULL', 'NULL'),
-('098109390243', 'Toner', 150000, 0, 1, 'NULL', 'NULL'),
-('bbc432f7d518d24c80bd8e92e4d5712e', 'Masker', 200000, 0, 0, 'NULL', 'NULL');
+('098109390218', 'Serum', 300000, 6, 1, 'NULL', 'NULL'),
+('098109390243', 'Toner', 150000, 7, 1, 'NULL', 'NULL'),
+('bbc432f7d518d24c80bd8e92e4d5712e', 'Masker', 200000, 51, 0, 'NULL', 'NULL');
 
 -- --------------------------------------------------------
 
@@ -157,10 +157,26 @@ CREATE TABLE `purchase` (
   `purchase_date` date DEFAULT NULL,
   `purchase_amount` int(11) NOT NULL,
   `purchase_type` varchar(20) NOT NULL,
+  `purchase_status` int(11) DEFAULT '0',
   `purchase_served_by` varchar(25) NOT NULL,
   `created_by` varchar(40) NOT NULL,
   `updated_by` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `purchase`
+--
+
+INSERT INTO `purchase` (`purchase_id`, `purchase_date`, `purchase_amount`, `purchase_type`, `purchase_status`, `purchase_served_by`, `created_by`, `updated_by`) VALUES
+('102-1587498542755714', '2020-04-24', 2250000, 'Produk', 1, '', 'NULL', 'NULL'),
+('102-1587498556092415', '2020-04-21', 25950000, 'Produk', 1, '', 'NULL', 'NULL'),
+('102-1587743713544567', '2020-04-24', 3000000, 'Produk', 1, '', 'NULL', 'NULL'),
+('102-1587743996580677', '2020-04-24', 2000000, 'Produk', 1, '', 'NULL', 'NULL'),
+('102-1587746060189493', '2020-04-24', 200000, 'Produk', 1, '', 'NULL', 'NULL'),
+('102-1587746233204575', '2020-04-24', 750000, 'Produk', 0, '', 'NULL', 'NULL'),
+('102-1587916744774890', '2020-04-26', 750000, 'Produk', 0, '', 'NULL', 'NULL'),
+('180-1587923468272727', '2020-04-26', 100000, 'Inventaris', 1, '', 'NULL', 'NULL'),
+('180-1587923735553405', '2020-04-26', 800000, 'Inventaris', 0, '', 'NULL', 'NULL');
 
 -- --------------------------------------------------------
 
@@ -171,9 +187,47 @@ CREATE TABLE `purchase` (
 CREATE TABLE `purchase_detail` (
   `purchase_detail_id` int(11) NOT NULL,
   `purchase_id` varchar(40) NOT NULL,
-  `purchase_item` varchar(40) NOT NULL,  `purchase_qty` int(11) NOT NULL,
+  `purchase_item_id` varchar(50) NOT NULL,
+  `purchase_item` varchar(40) NOT NULL,
+  `purchase_qty` int(11) NOT NULL,
   `purchase_price` int(11) NOT NULL,
   `purchase_total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `purchase_detail`
+--
+
+INSERT INTO `purchase_detail` (`purchase_detail_id`, `purchase_id`, `purchase_item_id`, `purchase_item`, `purchase_qty`, `purchase_price`, `purchase_total`) VALUES
+(23, '102-1587498556092415', '098109390243', 'Toner', 101, 150000, 15150000),
+(24, '102-1587498556092415', '098109390218', 'Serum', 36, 300000, 10800000),
+(32, '102-1587743713544567', 'bbc432f7d518d24c80bd8e92e4d5712e', 'Masker', 15, 200000, 3000000),
+(51, '102-1587743996580677', 'bbc432f7d518d24c80bd8e92e4d5712e', 'Masker', 10, 200000, 2000000),
+(52, '102-1587498542755714', '098109390243', 'Toner', 5, 150000, 750000),
+(53, '102-1587498542755714', '098109390218', 'Serum', 5, 300000, 1500000),
+(55, '102-1587746233204575', '098109390243', 'Toner', 5, 150000, 750000),
+(56, '102-1587746060189493', 'bbc432f7d518d24c80bd8e92e4d5712e', 'Masker', 1, 200000, 200000),
+(57, '102-1587916744774890', '098109390243', 'Toner', 5, 150000, 750000),
+(59, '180-1587923468272727', '', 'Pengering', 5, 20000, 100000),
+(61, '180-1587923735553405', '', 'Pengering', 40, 20000, 800000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trx_detail`
+--
+
+CREATE TABLE `trx_detail` (
+  `trx_detail_id` int(11) NOT NULL,
+  `trx_id` varchar(40) NOT NULL,
+  `trx_item_id` varchar(50) NOT NULL,
+  `trx_item` varchar(40) NOT NULL,
+  `trx_with_beautician` varchar(50) DEFAULT NULL,
+  `trx_with_hairWasher` varchar(50) DEFAULT NULL,
+  `trx_with_stylist` varchar(50) DEFAULT NULL,
+  `trx_qty` int(11) NOT NULL,
+  `trx_price` int(11) NOT NULL,
+  `trx_total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -217,6 +271,12 @@ ALTER TABLE `purchase_detail`
   ADD PRIMARY KEY (`purchase_detail_id`);
 
 --
+-- Indexes for table `trx_detail`
+--
+ALTER TABLE `trx_detail`
+  ADD PRIMARY KEY (`trx_detail_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -224,7 +284,13 @@ ALTER TABLE `purchase_detail`
 -- AUTO_INCREMENT for table `purchase_detail`
 --
 ALTER TABLE `purchase_detail`
-  MODIFY `purchase_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `purchase_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT for table `trx_detail`
+--
+ALTER TABLE `trx_detail`
+  MODIFY `trx_detail_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
