@@ -3,7 +3,7 @@
 	require '../api_conf.php';
 	
 	$data = "";
-
+	
 	if(isset($_GET['id'])){
 		$data = $dale->kueri("SELECT * FROM `master_product` WHERE `product_id` = '".$_GET['id']."'");
 	}
